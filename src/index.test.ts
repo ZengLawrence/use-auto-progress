@@ -1,8 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import useAutoProgressEffect from '.';
+import useAutoProgress from '.';
 
 test('initialize hook returns [number, function]', () => {
-  const { result } = renderHook(() => useAutoProgressEffect(false));
+  const { result } = renderHook(() => useAutoProgress(false));
 
   // return [number, function]
   expect(result.current.length).toBe(2);
@@ -13,7 +13,7 @@ test('initialize hook returns [number, function]', () => {
 });
 
 test('change start from true to false should return change value to 100', () => {
-  const { result } = renderHook(() => useAutoProgressEffect(true));
+  const { result } = renderHook(() => useAutoProgress(true));
 
   {
     const [value, setStart] = result.current;
@@ -32,7 +32,7 @@ test('change start from true to false should return change value to 100', () => 
 });
 
 test('set start to true to start progress value from 0, 25, 50, 75 to 90, then set start to false to stop and get back 100', () => {
-  const { result, waitForNextUpdate } = renderHook(() => useAutoProgressEffect(false));
+  const { result, waitForNextUpdate } = renderHook(() => useAutoProgress(false));
 
   {
     const [value, setStart] = result.current;
@@ -78,7 +78,7 @@ test('set start to true to start progress value from 0, 25, 50, 75 to 90, then s
 });
 
 test('restart should reset value to 0', () => {
-  const { result } = renderHook(() => useAutoProgressEffect(true));
+  const { result } = renderHook(() => useAutoProgress(true));
 
   {
     const [value, setStart] = result.current;

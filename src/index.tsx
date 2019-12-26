@@ -19,7 +19,7 @@ const useValueState = (): [number, () => void, () => void, () => void] => {
     return [value, nextValue, finalValue, resetValue];
 }
 
-const useAutoProgressEffect = (start: boolean): [number, (start: boolean) => void] => {
+const useAutoProgress = (start: boolean): [number, (start: boolean) => void] => {
     const [value, nextValue, finalValue, resetValue] = useValueState();
     const [startProgress, setStartProgress] = useState(start);
 
@@ -49,4 +49,4 @@ const useAutoProgressEffect = (start: boolean): [number, (start: boolean) => voi
     return [value, setStart];
 }
 
-export default useAutoProgressEffect;
+export default useAutoProgress;

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import useAutoProgressEffect from 'use-auto-progress'
+import useAutoProgress from 'use-auto-progress'
 
 const App = () => {
-  const [value] = useAutoProgressEffect(true);
+  const [value] = useAutoProgress(true);
   return (
     <div>
       {value}
