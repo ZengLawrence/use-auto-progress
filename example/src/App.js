@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { useMyHook } from 'use-auto-progress'
+import useAutoProgressEffect from 'use-auto-progress'
 
 const App = () => {
-  const example = useMyHook()
+  const [value] = useAutoProgressEffect(true);
   return (
     <div>
-      {example}
+      {value}
     </div>
   )
 }
