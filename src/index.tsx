@@ -24,7 +24,7 @@ const useAutoProgress = (start: boolean): [number, (start: boolean) => void] => 
     const [startProgress, setStartProgress] = useState(start);
     const [timers, setTimers] = useState<NodeJS.Timeout[]>([]);
 
-    const setValueAsync = (val: number, ms: number) => {
+    const setValueTimer = (val: number, ms: number) => {
         return setTimeout(() => {
             setValue(val);
         }, ms);
@@ -33,7 +33,7 @@ const useAutoProgress = (start: boolean): [number, (start: boolean) => void] => 
         if (s !== startProgress) {
             setStartProgress(s);
             if (s) {
-                const setValueTimers = PROGRESS_VALUES.map((v, i) => setValueAsync(v, 500 * i));
+                const setValueTimers = PROGRESS_VALUES.map((v, i) => setValueTimer(v, 500 * i));
                 setTimers(setValueTimers);
             } else {
                 finalValue();
