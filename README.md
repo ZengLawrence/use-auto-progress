@@ -34,6 +34,24 @@ const Example = () => {
 }
 ```
 
+### Options
+
+_intervalMs_ : Number of ms between each value update.  Default is 500.
+
+Example:
+```tsx
+  useAutoProgress({intervalMs : 1000})
+```
+
+_steps_ : Steps for value updates.  Default is _[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]_.
+
+Final value for steps is always 100, which is displayed when _setStart(false)_ is called.  It is not required to include in the steps option.  
+
+Example:
+```tsx
+  useAutoProgress({steps : [0, 25, 50, 75, 100]})
+```
+
 ## License
 
 MIT © [ZengLawrence](https://github.com/ZengLawrence)
