@@ -15,13 +15,20 @@ npm install --save use-auto-progress
 ```tsx
 import * as React from 'react'
 
-import { useMyHook } from 'use-auto-progress'
+import useAutoProgress from 'use-auto-progress'
 
 const Example = () => {
-  const example = useMyHook()
+  const [value, setStart, running] = useAutoProgress();
+
+  const toggle = () => {
+    const s = !running;
+    setStart(s);
+  };
+
   return (
     <div>
-      {example}
+      <Button onClick={toggle}>{running ? 'Stop' : 'Start'}</Button>
+      <Progress value={value}>{value}%</Progress>
     </div>
   )
 }
