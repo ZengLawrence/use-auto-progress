@@ -2,6 +2,8 @@
 
 > React hook for value and related control functions for displaying Progress component, which can progress by itself.
 
+Implement algorithm for [making progress bar _feel_ faster](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/).
+
 [![NPM](https://img.shields.io/npm/v/use-auto-progress.svg)](https://www.npmjs.com/package/use-auto-progress) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
