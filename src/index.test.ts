@@ -16,7 +16,7 @@ test('initialize hook returns [number, function, boolean]', () => {
 });
 
 test('change start from true to false should return change value to 100 and running to be true', async () => {
-  const { result, wait } = renderHook(() => useAutoProgress());
+  const { result, wait } = renderHook(() => useAutoProgress({intervalMs: 10}));
 
   {
     const [value, setStart, running] = result.current;
@@ -51,7 +51,7 @@ test('change start from true to false should return change value to 100 and runn
 });
 
 test('set start to true to start progress value from 0 to 90 at 10 increments, then set start to false to stop and get back 100', async () => {
-  const { result, wait } = renderHook(() => useAutoProgress());
+  const { result, wait } = renderHook(() => useAutoProgress({intervalMs: 10}));
 
   act(() => {
     const setStart = result.current[1];
@@ -86,7 +86,7 @@ test('set start to true to start progress value from 0 to 90 at 10 increments, t
 });
 
 test('restart should reset value to 0', async () => {
-  const { result, wait, waitForNextUpdate } = renderHook(() => useAutoProgress());
+  const { result, wait, waitForNextUpdate } = renderHook(() => useAutoProgress({intervalMs: 10}));
 
   // start
   act(() => {
