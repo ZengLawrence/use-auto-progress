@@ -3,30 +3,36 @@ import useAutoProgress from '.';
 
 const FINAL_VALUE = 100;
 
-test('initialize hook returns [number, function]', () => {
+test('initialize hook returns [number, function, boolean]', () => {
   const { result } = renderHook(() => useAutoProgress());
 
   // return [number, function]
   expect(result.current.length).toBe(3);
 
-  const [value, setStart] = result.current;
+  const [value, setStart, running] = result.current;
   expect(value).toBe(0);
   expect(setStart).toBeDefined();
+  expect(running).toBeFalsy();
 });
 
-test('change start from true to false should return change value to 100', async () => {
+test('change start from true to false should return change value to 100 and running to be true', async () => {
   const { result, wait } = renderHook(() => useAutoProgress());
 
   {
-    const [value, setStart] = result.current;
+    const [value, setStart, running] = result.current;
     expect(value).toBe(0);
     expect(setStart).toBeDefined();
+    expect(running).toBeFalsy();
   }
 
   act(() => {
     const setStart = result.current[1];
     setStart(true);
   })
+  {
+    const running = result.current[2];
+    expect(running).toBeTruthy();
+  }
 
   await wait(() => {
     const [value] = result.current;
@@ -37,8 +43,10 @@ test('change start from true to false should return change value to 100', async 
     setStart(false);
   })
   {
-    const [value] = result.current;
+    const value = result.current[0];
     expect(value).toBe(FINAL_VALUE);
+    const running = result.current[2];
+    expect(running).toBeFalsy();
   }
 });
 
