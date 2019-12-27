@@ -2,21 +2,13 @@ import { useState, useEffect } from "react";
 
 const PROGRESS_VALUES = [0, 25, 75, 90];
 const INITIAL_VALUE = PROGRESS_VALUES[0];
-const LAST_VALUE = PROGRESS_VALUES[PROGRESS_VALUES.length - 1];
 const FINAL_VALUE = 100;
-
-function findNext(n: number) {
-    const nextVal = PROGRESS_VALUES.find(v => v > n);
-    return (nextVal ? nextVal : LAST_VALUE);
-}
 
 const useValueState = () => {
     const [value, setValue] = useState(INITIAL_VALUE);
 
-    const nextValue = () => (setValue(findNext(value)));
     const finalValue = () => (setValue(FINAL_VALUE));
-    const resetValue = () => (setValue(INITIAL_VALUE));
-    return { value, setValue, nextValue, finalValue, resetValue };
+    return { value, setValue, finalValue };
 }
 
 const useAutoProgress = (start: boolean): [number, (start: boolean) => void] => {
