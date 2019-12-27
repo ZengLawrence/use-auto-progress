@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Progress, Button } from 'reactstrap'
 
 import useAutoProgress from 'use-auto-progress'
 
 const App = () => {
-  const [running, setRunning] = useState(false);
-  const [value, setStart] = useAutoProgress(running);
+  const [value, setStart, running] = useAutoProgress(false);
 
   const toggle = () => {
     const s = !running;
-    setRunning(s);
     setStart(s);
   };
 
