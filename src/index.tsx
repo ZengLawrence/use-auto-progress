@@ -10,41 +10,42 @@ function findNext(n: number) {
     return (nextVal ? nextVal : LAST_VALUE);
 }
 
-const useValueState = (): [number, () => void, () => void, () => void] => {
+const useValueState = () => {
     const [value, setValue] = useState(INITIAL_VALUE);
 
     const nextValue = () => (setValue(findNext(value)));
     const finalValue = () => (setValue(FINAL_VALUE));
     const resetValue = () => (setValue(INITIAL_VALUE));
-    return [value, nextValue, finalValue, resetValue];
+    return { value, setValue, nextValue, finalValue, resetValue };
 }
 
 const useAutoProgress = (start: boolean): [number, (start: boolean) => void] => {
-    const [value, nextValue, finalValue, resetValue] = useValueState();
+    const { value, setValue, finalValue } = useValueState();
     const [startProgress, setStartProgress] = useState(start);
+    const [timers, setTimers] = useState<NodeJS.Timeout[]>([]);
 
-    const setStart = (s: boolean) => { 
+    const setValueAsync = (val: number, ms: number) => {
+        return setTimeout(() => {
+            setValue(val);
+        }, ms);
+    }
+    const setStart = (s: boolean) => {
         if (s !== startProgress) {
             setStartProgress(s);
             if (s) {
-                resetValue();
+                const setValueTimers = PROGRESS_VALUES.map((v, i) => setValueAsync(v, 500 * i));
+                setTimers(setValueTimers);
             } else {
-                finalValue(); 
+                finalValue();
             }
         }
     }
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (startProgress) {
-                nextValue();
-            }
-        }, 200);
-
         return function cleanUp() {
-            clearTimeout(timeout);
+            timers.forEach(timeout => clearTimeout(timeout));
         }
-    });
+    }, [timers]);
 
     return [value, setStart];
 }
