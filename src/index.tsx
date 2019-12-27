@@ -18,10 +18,12 @@ const useValueState = () => {
     return { value, finalValue, scheduleTimers };
 }
 
-const useAutoProgress = (start: boolean, options: {intervalMs: number} = {intervalMs: 500}): [number, (start: boolean) => void] => {
+const useAutoProgress = (start: boolean, options: { intervalMs: number } = { intervalMs: 500 }): [number, (start: boolean) => void, boolean] => {
     const { value, finalValue, scheduleTimers } = useValueState();
     const [running, setRunning] = useState(start);
+
     const [timers, setTimers] = useState<NodeJS.Timeout[]>([]);
+    const cancelTimers = () => timers.forEach(timeout => clearTimeout(timeout));
 
     const setStart = (s: boolean) => {
         if (s !== running) {
@@ -29,6 +31,7 @@ const useAutoProgress = (start: boolean, options: {intervalMs: number} = {interv
             if (s) {
                 setTimers(scheduleTimers(options.intervalMs));
             } else {
+                cancelTimers();
                 finalValue();
             }
         }
@@ -36,11 +39,11 @@ const useAutoProgress = (start: boolean, options: {intervalMs: number} = {interv
 
     useEffect(() => {
         return function cleanUp() {
-            timers.forEach(timeout => clearTimeout(timeout));
+            cancelTimers();
         }
     }, [timers]);
 
-    return [value, setStart];
+    return [value, setStart, running];
 }
 
 export default useAutoProgress;
