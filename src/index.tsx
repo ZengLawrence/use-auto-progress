@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const DEFAULT_STEPS = [0, 25, 75, 90];
 const INITIAL_VALUE = 0;
 const FINAL_VALUE = 100;
+const DEFAULT_INTERVAL_MS = 500;
 
 const useValueState = (steps: number[]) => {
     const interimSteps = steps.filter(n => n!==FINAL_VALUE);
@@ -20,7 +21,7 @@ const useValueState = (steps: number[]) => {
 }
 
 const useAutoProgress = (start: boolean, options: { intervalMs?: number, steps?: number[] } = {}): [number, (start: boolean) => void, boolean] => {
-    const { intervalMs, steps } = { intervalMs: 500, steps: DEFAULT_STEPS, ...options };
+    const { intervalMs, steps } = { intervalMs: DEFAULT_INTERVAL_MS, steps: DEFAULT_STEPS, ...options };
     const { value, finalValue, scheduleTimers } = useValueState(steps);
     const [running, setRunning] = useState(start);
 
