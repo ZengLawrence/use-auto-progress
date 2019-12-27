@@ -14,6 +14,14 @@ npm install --save use-auto-progress
 
 ## Usage
 
+### useAutoProgress
+```typescript
+function useAutoProgress(
+  options? : Options
+): [number, (b: boolean) => void, boolean]
+```
+
+Example
 ```tsx
 import * as React from 'react'
 
@@ -36,7 +44,7 @@ const Example = () => {
 }
 ```
 
-### Options
+### Options (optional)
 
 _intervalMs_ : Number of ms between each value update.  Default is 500.
 
@@ -53,6 +61,15 @@ Example:
 ```tsx
   useAutoProgress({steps : [0, 25, 50, 75, 100]})
 ```
+
+### returns
+The function returns an array of three elements: value (_number_), setStart function (_(b: boolean) => void_), and running (_boolean_).
+
+_value_ : Value to set on _Progress_ element.
+
+_setStart_ : Function _(b: boolean) => void_ to start the auto progress algorithm.  Set to _true_ to start and _false_ to stop.
+
+_running_ : Boolean indicating if progress algorithm is running.  If _true_, it is running, _false_ it is stop.  When it stops, the value is set to _100_.
 
 ## License
 
