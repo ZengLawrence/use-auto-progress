@@ -20,12 +20,12 @@ const useValueState = () => {
 
 const useAutoProgress = (start: boolean, options: {intervalMs: number} = {intervalMs: 500}): [number, (start: boolean) => void] => {
     const { value, finalValue, scheduleTimers } = useValueState();
-    const [startProgress, setStartProgress] = useState(start);
+    const [running, setRunning] = useState(start);
     const [timers, setTimers] = useState<NodeJS.Timeout[]>([]);
 
     const setStart = (s: boolean) => {
-        if (s !== startProgress) {
-            setStartProgress(s);
+        if (s !== running) {
+            setRunning(s);
             if (s) {
                 setTimers(scheduleTimers(options.intervalMs));
             } else {
