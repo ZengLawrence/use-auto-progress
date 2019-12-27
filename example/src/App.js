@@ -4,7 +4,7 @@ import { Progress, Button } from 'reactstrap'
 import useAutoProgress from 'use-auto-progress'
 
 const App = () => {
-  const [value, setStart, running] = useAutoProgress(false);
+  const [value, setStart, running] = useAutoProgress();
 
   const toggle = () => {
     const s = !running;

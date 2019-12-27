@@ -20,10 +20,10 @@ const useValueState = (steps: number[]) => {
     return { value, finalValue, scheduleTimers };
 }
 
-const useAutoProgress = (start: boolean, options: { intervalMs?: number, steps?: number[] } = {}): [number, (start: boolean) => void, boolean] => {
+const useAutoProgress = (options: { intervalMs?: number, steps?: number[] } = {}): [number, (start: boolean) => void, boolean] => {
     const { intervalMs, steps } = { intervalMs: DEFAULT_INTERVAL_MS, steps: DEFAULT_STEPS, ...options };
     const { value, finalValue, scheduleTimers } = useValueState(steps);
-    const [running, setRunning] = useState(start);
+    const [running, setRunning] = useState(false);
 
     const [timers, setTimers] = useState<NodeJS.Timeout[]>([]);
     const cancelTimers = () => timers.forEach(timeout => clearTimeout(timeout));
