@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const DEFAULT_STEPS = [0, 25, 75, 90];
+const DEFAULT_STEPS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 const INITIAL_VALUE = 0;
 const FINAL_VALUE = 100;
 const DEFAULT_INTERVAL_MS = 500;
