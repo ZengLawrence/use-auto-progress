@@ -5,6 +5,7 @@ const INITIAL_VALUE = 0;
 const FINAL_VALUE = 100;
 
 const useValueState = (steps: number[]) => {
+    const interimSteps = steps.filter(n => n!==FINAL_VALUE);
     const [value, setValue] = useState(INITIAL_VALUE);
 
     const finalValue = () => (setValue(FINAL_VALUE));
@@ -14,7 +15,7 @@ const useValueState = (steps: number[]) => {
             setValue(val);
         }, ms);
     }
-    const scheduleTimers = (ms: number) => steps.map((v, i) => setValueTimer(v, ms * i));
+    const scheduleTimers = (ms: number) => interimSteps.map((v, i) => setValueTimer(v, ms * i));
     return { value, finalValue, scheduleTimers };
 }
 
